@@ -12,6 +12,7 @@ const Play = (props) => {
   const [textInIDE, setTextInIDE] = useState(props.defaultVal);
   const [recordText, setRecordText] = useState(props.defaultVal);
   const [userActions, setUserActions] = useState([]);
+  Axios.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(localStorage.getItem('user')).token}`;
   let counter = 0;
   const sendData = async (body) => {
       await Axios.post("http://localhost:3001/api/ess/play",body).then(response=>{

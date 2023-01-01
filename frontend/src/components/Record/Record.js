@@ -6,10 +6,13 @@ import { useState } from 'react';
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/ext-language_tools";
+import { useAuthContext } from "../hooks/useAuthContext";
 const Record = (props) => {
     const [textInIDE, setTextInIDE] = useState(props.defaultVal);
     const [record, setRecord] = useState(false);
     let userActions = [];
+    const {user} = useAuthContext();
+    Axios.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(localStorage.getItem('user')).token}`;
 
     const recordHandler = () => {
         setRecord(true);
@@ -19,7 +22,7 @@ const Record = (props) => {
     }
 
     const sendState = async (body) => {
-        Axios.post("http://localhost:3001/api/ess/recordState",body);
+        await Axios.post("http://localhost:3001/api/ess/recordState",body);
     }
 
     const sendData = async (body) => {
