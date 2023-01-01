@@ -1,0 +1,16 @@
+.sidebar{
+    width: 220px;
+    height: 100vh;
+    text-align: center;
+    background-color: #393d45;
+    display:inline-block;
+}
+
+p{
+    text-align: left;
+    margin-left: 10px ;
+    margin-bottom: 26px;
+    font-size:large;
+    font-family:monospace;
+    color: #82806e;
+}
