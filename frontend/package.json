@@ -2,7 +2,7 @@
   "name": "ide",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +12,7 @@
     "react-ace": "^10.1.0",
     "react-dom": "^18.2.0",
     "react-pro-sidebar": "^1.0.0-alpha.9",
+    "react-redux": "^8.0.5",
     "react-router": "^6.6.1",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",

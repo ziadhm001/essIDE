@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes ,Route} from "react-router-dom";
 import Record from './components/Record/Record';
 import Play from './components/Play/Play';
 import Home from './components/Home/Home';
+import Signup from './components/Signup/Signup'
 let defaultVal = `/* This is Eliminating Silly Switching Online IDE.
 * You can start coding & we will record the session for you!
 */
@@ -14,13 +15,19 @@ function App() {
       <Routes>
         <Route path='/record' element={
           <Record defaultVal={defaultVal}/>
-        }/>
+        }
+        />
 
         <Route path='/' element={
           <Home/>
         }
-        
         />
+
+        <Route path='/signup' element={
+          <Signup/>
+        }
+        />
+
         <Route path='/play' element={
           <Play defaultVal={defaultVal}/>
         }/>

@@ -13,18 +13,23 @@ const Record = (props) => {
 
     const recordHandler = () => {
         setRecord(true);
-        sendData({codeStart: textInIDE})
+        sendState({codeStart: textInIDE})
         const timestamp = Date.now();
-        userActions.unshift({action: '1', lines: '2', start: '3', timestamp: timestamp})
         console.log(userActions);
     }
-    const doneHandler = () => {
-        setRecord(false);
-    }
-    const sendData = async (body) => {
-        Axios.post("http://localhost:5000/record",body);
+
+    const sendState = async (body) => {
+        Axios.post("http://localhost:3001/api/ess/recordState",body);
     }
 
+    const sendData = async (body) => {
+        Axios.post("http://localhost:3001/api/ess/record",body);
+    }
+
+    const doneHandler = () => {
+        setRecord(false);
+        sendData({action: "end", lines: [], start: {}, timestamp: 0});
+    }
     const editorChangeHandler= (value,event) => {
         if(record === true)
         {
