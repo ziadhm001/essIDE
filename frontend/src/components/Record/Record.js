@@ -54,7 +54,7 @@ const Record = (props) => {
 
     return(
         <div>
-            <NavbarRec recordHandler={recordHandler} doneHandler={doneHandler} />
+            <NavbarRec name={state.name} recordHandler={recordHandler} doneHandler={doneHandler} />
             <div style={{ display: 'inline-flex', height: '100%' , width: '100%', backgroundColor:'#282c34'}}>
                 <Sidebar textInIDE={textInIDE} setTextInIDE={setTextInIDE}/>
                 <AceEditor

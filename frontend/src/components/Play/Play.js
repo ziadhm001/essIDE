@@ -75,7 +75,7 @@ const Play = (props) => {
     }
     return(
         <div>
-            <NavbarPlay playHandler={playHandler} />
+            <NavbarPlay name={name} playHandler={playHandler} />
             <div style={{ display: 'inline-flex', height: '100%' , width: '100%', backgroundColor:'#282c34'}}>
               <Sidebar textInIDE={textInIDE} setTextInIDE={setTextInIDE}/>
               <AceEditor
