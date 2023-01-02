@@ -16,11 +16,11 @@ export const useSignup = () => {
 
         Axios.post('http://localhost:3001/api/user/signup',{email,password})
         .then(response =>{
-            console.log(response.data);
-            if(!response.ok) 
+            console.log(response)
+            if(response.statusText !== "OK") 
             {
                 setIsLoading(false)
-                setError(response.error)
+                setError(response.data.error)
             }
 
             else
