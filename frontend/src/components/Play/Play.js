@@ -7,20 +7,35 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 const Play = (props) => {
   const [isLoading, setLoading] = useState(true); // Loading state
   const [textInIDE, setTextInIDE] = useState(props.defaultVal);
   const [recordText, setRecordText] = useState(props.defaultVal);
   const [userActions, setUserActions] = useState([]);
+  const [searchParams] = useSearchParams();
+  const name = searchParams.get("name");
+  Axios.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(localStorage.getItem('user')).token}`;
   let counter = 0;
   const sendData = async (body) => {
       await Axios.post("http://localhost:3001/api/ess/play",body).then(response=>{
-      setRecordText(response.data[0].codeStart);
+      let data;
+      response.data.forEach( (res,i) =>{
+        if(res.name === name)
+          data = res;
+      })
+      setRecordText(data.codeStart);
       console.log("Code start ready!");
       })
+      let currUserActions = [];
+
       await Axios.post("http://localhost:3001/api/ess/playData",body).then(response=>{
-      setUserActions(response.data);
-      console.log("Record ready!");
+      response.data.forEach( (res,i) =>{
+        if(res.name === name)
+            currUserActions = [...currUserActions,res];
+      })
+      setUserActions(currUserActions);
+      console.log("Record ready!",currUserActions);
       setLoading(false);
       }) 
 }

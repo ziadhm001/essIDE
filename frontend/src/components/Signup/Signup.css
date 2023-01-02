@@ -8,7 +8,7 @@
     scroll-behavior: smooth; /*smoth scrolling on website*/
     color: #303433;
 }
-header{
+.headerSignup{
 
     background-color:white ;
     width : 100% ;
@@ -164,5 +164,14 @@ button.submit:hover {
 }
 .Signup a:hover{
     color:blueviolet ; /*change color with mouse icon */
+}
+
+div.error {
+    padding: 10px;
+    background: #ffefef;
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 4px;
+        margin: 20px 0;
 }
 

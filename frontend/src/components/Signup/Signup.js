@@ -1,5 +1,4 @@
 import './Signup.css';
-import Axios from 'axios';
 import { useSignup } from '../hooks/useSignup';
 import { useState } from 'react';
 
@@ -7,7 +6,7 @@ const Home = () =>{
     const [userName ,setUserName] = useState('');
     const [password ,setPassword] = useState('');
     const [confirmPassword ,setConfirmPassword] = useState('');
-    const {signup, isLoading, error} = useSignup();
+    const {signup, isLoading, error , setError} = useSignup();
     const updateUser = event => {
         setUserName(event.target.value);
     }
@@ -20,26 +19,16 @@ const Home = () =>{
         setConfirmPassword(event.target.value);
     }
 
-
-    const sendData = async (body) => {
-        Axios.post("http://localhost:3001/api/user/signup",body).then(response=>{
-            if(response.data === "OK")
-                console.log(response.data);
-            else
-                console.log(response.data);
-
-        })
-    }
     const clickHandler = async (event) => {
         event.preventDefault();
         if(confirmPassword === password)
             await signup(userName, password);
         else
-            throw Error('Passwords don\'t match');
+            setError('Passwords don\'t match');
     }
     return(
         <div className='body body1'>
-            <header className='body1'>
+            <header className='body1 headerSignup'>
                 <a href="/" className="logo body1">ESS</a>
                     <nav className="navigation body1">
                         <a href="/services">Courses</a>
@@ -52,10 +41,11 @@ const Home = () =>{
             </section>
             <section className="main body1">
                 <div className="login-container body1">
-                    <p className="title body1">Welcome back to ESS</p>
+                    <p className="title body1">Welcome to ESS</p>
                     <div className="separator body1"></div>
-                    <p className="welcome-message body1">Please, provide the login credentials for your new account to signup</p> <br></br> 
+                    <p className="welcome-message body1">Please, provide the login credentials for your new account to signup</p> <br/>
                     <form className="login-form body1">
+                    {error && <div className='error'>{error}</div>}
                         <div className="form-control body1">
                             <input value={userName} onChange={updateUser} className='formIB fromIT' type="text" placeholder="Username"/>
                             <i className="fas fa-user"></i>
@@ -70,7 +60,7 @@ const Home = () =>{
                         </div>
             
                         <button disabled={isLoading} className="submit formIB body1" onClick={clickHandler}>Signup</button>
-                        {error && <div className='error'>{error}</div>}
+                        
                     </form>
                 </div>
             </section>

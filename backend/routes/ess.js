@@ -7,14 +7,17 @@ const corsOptions = {
 };
 
 const {
-    login,
     play,
     createRecord,
     createState,
-    playData
+    playData,
+    getNames
 } = require('../controllers/essControllers')
+const requireAuth = require('../middleware/requireAuth');
 
-router.post('/login',cors(corsOptions), login);
+
+router.use(requireAuth);
+router.post('/recordNames',cors(corsOptions), getNames)
 router.post('/play',cors(corsOptions), play)
 router.post('/playData',cors(corsOptions), playData)
 router.post('/record',cors(corsOptions), createRecord)
