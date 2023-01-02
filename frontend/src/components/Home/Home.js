@@ -1,13 +1,33 @@
 import './Home.css';
 import { useLogout } from '../hooks/useLogout';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useRecordContext } from '../hooks/useRecordContext';
+import  RecordItem  from '../RecordItem/RecordItem';
+import { useState } from 'react';
 const Home = () => {
     const {user} = JSON.parse(localStorage.getItem('user'));
+    const {name, dispatch} = useRecordContext();
     const {logout} = useLogout();
+    const [recordName, setRecordName] = useState('');
+    const [allowRecord, setAllowRecord] = useState(false);
+    const [allowPlay, setAllowPlay] = useState(false);
+    
+    const updateRecordName = event => {
+        setRecordName(event.target.value)
+    }
+
     const handleClick = () => {
         logout();
     }
+    const handlePlayClick = () => {
+        setAllowPlay(true);
+    }
+    const handleRecordClick = () => {
+        setAllowRecord(true);
+    }
 
+    const handleSubmit = () => {
+        dispatch({type:'SET_NAME', payload: recordName});
+    }
     return(
         <div className='body12 bodyHome'>
             <header className='headerHome body12'>
@@ -26,13 +46,13 @@ const Home = () => {
                                 </a>
                             </li>
                             <li className='body12'>
-                                <a className='body12' href="/record">
+                                <a className='body12' onClick={handleRecordClick}>
                                     <span className="material-symbols-outlined">radio_button_checked</span>
                                     <span className="nav-item body12">Record</span>
                                 </a>
                             </li>
                             <li className='body12'>
-                                <a className='body12' href="/play">
+                                <a className='body12' onClick={handlePlayClick}>
                                     <span className="material-symbols-outlined">laptop_chromebook</span>
                                     <span className="nav-item body12">Courses</span>
                                 </a>
@@ -64,6 +84,12 @@ const Home = () => {
                         </ul>
                     </nav>
             </aside>
+
+            {allowPlay && <RecordItem name='First Record' id='1'/>}
+            {allowRecord && <span style={ {marginLeft: '60px'} }>Record Name</span>}
+            {allowRecord && <input style={ {marginLeft: '20px'} } value={recordName} onChange={updateRecordName} type="text"/>}
+            {allowRecord && <button style={ {marginLeft: '20px'} } onClick={handleSubmit}>Enter</button>}
+
     </section>
 </div>
     )

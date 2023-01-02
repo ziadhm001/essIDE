@@ -3,9 +3,9 @@ const Record = require('../models/recordModel')
 const State = require('../models/stateModel')
 
 const createRecord = async (req,res) => {
-    const {action , lines ,start ,timestamp} = req.body;
+    const {action , lines ,start ,timestamp, name} = req.body;
     try {
-        const record = await Record.create({action, lines, start, timestamp});
+        const record = await Record.create({action, lines, start, timestamp, name});
         res.status(200).json(record);
     } catch (error) {
         res.status(400).json({error: error.message});
@@ -13,9 +13,9 @@ const createRecord = async (req,res) => {
 }
 
 const createState = async (req,res) => {
-    const {codeStart} = req.body;
+    const {codeStart, name} = req.body;
     try {
-        const state = await State.create({codeStart});
+        const state = await State.create({codeStart, name});
         res.status(200).json(state);
     } catch (error) {
         res.status(400).json({error: error.message});

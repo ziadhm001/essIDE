@@ -83,6 +83,10 @@
     text-transform: uppercase;
 
 }
+.rName {
+    display: flex;
+    margin-left: 50px;
+}
 .AsideHome a {
     position: relative;
     color: white;
